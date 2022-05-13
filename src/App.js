@@ -1,23 +1,27 @@
 import * as React from "react";
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Home from "./page/Home/Home";
-import AddQuestion from "./page/AddQuestion";
+import AddExam from "./page/Home/AddExam";
+import EditExam from "./page/Home/EditExam";
+import Add from "./page/Question/Add";
+import Edit from "./page/Question/Edit";
+import Question from "./page/Question/Question";
 
 function App() {
     return (
         <div className="App">
-            <Header></Header>
             <div className="container mx-auto">
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Home/>}></Route>
-                        <Route path="/add" element={ <AddQuestion/> }/>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/add-exam" element={<AddExam/>}/>
+                        <Route path="/edit-exam/:id" element={<EditExam/>}/>
+                        <Route path="/question/:id" element={<Question/>}/>
+                        <Route path="/add-question/:idExam" element = {<Add />}/>
+                        <Route path = "/edit-question/:id" element = {<Edit/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>
-            <Footer></Footer>
         </div>
     );
 }

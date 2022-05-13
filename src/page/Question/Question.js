@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { delExam, getAllExam } from "../../services/examService";
+import { Link, useParams } from "react-router-dom";
+import { getAllQuestions , deleteQuestion } from "../../services/questionService";
 
-function Home(props) {
+function Question(props) {
+  const { id } = useParams();
   const [showQuestion, setShowQuestion] = useState([]);
 
-  const getExam = async () => {
+  const getQuestion = async () => {
     try {
-      const rep = await getAllExam();
-      console.log(rep.data);
+      const rep = await getAllQuestions(id);
       setShowQuestion(rep.data);
     } catch (e) {
       console.log(e);
@@ -16,13 +16,13 @@ function Home(props) {
   };
 
   useEffect(() => {
-    getExam();
+    getQuestion();
   }, []);
 
   const deleteNote = async (id, index) => {
     try {
-      await delExam(id);
-      getExam()
+      await deleteQuestion(id);
+      getQuestion();
       alert("Xoá thành công");
     } catch (error) {
       console.log();
@@ -33,8 +33,8 @@ function Home(props) {
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
         <div className="mb-4 flex justify-between">
-          <h1 className="text-grey-darkest">Danh sách Exam</h1>
-          <Link to="/add-exam">
+          <h1 className="text-grey-darkest">Danh sách Câu hỏi</h1>
+          <Link to={`/add-question/${id}`}>
             <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">
               Add
             </button>
@@ -44,8 +44,8 @@ function Home(props) {
           {(showQuestion || []).map((item, index) => {
             return (
               <div className="flex mb-4 items-center" key={index}>
-                <Link to={`/edit-exam/${item.id}`}>
-                  <p className="w-full text-grey-darkest">{item.exam_name}</p>
+                <Link to={`/edit-question/${item.id}`}>
+                  <p className="w-full text-grey-darkest">{item.question_content}</p>
                 </Link>
                 <button
                   onClick={() => deleteNote(item.id, index)}
@@ -53,10 +53,8 @@ function Home(props) {
                 >
                   Remove
                 </button>
-                <button
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
-                >
-                    <Link to={`/question/${item.id}`}>Thông tin chi tiết</Link>
+                <button className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">
+                  <Link to={`/question`}>Thông tin chi tiết</Link>
                 </button>
               </div>
             );
@@ -67,4 +65,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default Question;
