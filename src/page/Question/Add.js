@@ -83,13 +83,13 @@ const Add = () => {
               <h1 className="text-grey-darkest">Thêm câu hỏi</h1>
             </div>
             <select className="w-48" onChange={(e) => setType(e.target.value)}>
-              <option value="1" key="0">
+              <option value="1" key="1">
                 Single choice{" "}
               </option>
-              <option value="2" key="1">
+              <option value="2" key="2">
                 Multiple choice
               </option>
-              <option value="3  " key="2">
+              <option value="3  " key="3">
                 Single select
               </option>
             </select>
