@@ -58,7 +58,7 @@ function Home(props) {
                 >
                     <Link to={`/question/${item.id}`}>Thông tin chi tiết</Link>
                 </button>
-              </div>
+              </div>    
             );
           })}
         </div>

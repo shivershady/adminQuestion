@@ -12,14 +12,14 @@ const Add = () => {
 
   const updateFieldChanged = (index) => (e) => {
     let newArr = [...answers];
-    newArr[index] = {...newArr[index],content : e.target.value};
+    newArr[index] = { ...newArr[index], content: e.target.value };
     setAnswers(newArr);
   };
-  const changeAnswer = (index) => (e)=>{
+  const changeAnswer = (index) => (e) => {
     let newArr = [...answers];
-    newArr[index] = {...newArr[index] , isright : e.target.value};
+    newArr[index] = { ...newArr[index], isright: !!e.target.value };
     setAnswers(newArr);
-  }
+  };
 
   const changeQuestion = (e) => {
     if (e.target.value) {
@@ -69,9 +69,9 @@ const Add = () => {
     addQuestion({
       question_type: parseInt(type),
       question_content: questionText,
-      answerDTOS : answers,
-      examDto : idExam,
-      mark : 10,
+      answerDTOS: answers,
+      examDto: { id: parseInt(idExam)},
+      mark: 10,
     });
   };
   return (
@@ -132,9 +132,19 @@ const Add = () => {
                   onChange={updateFieldChanged(index)}
                 />
                 <div>
-                  <input type="radio" name={`check-${index}`} onChange={changeAnswer(index)} value={true} />
+                  <input
+                    type="radio"
+                    name={`check-${index}`}
+                    onChange={changeAnswer(index)}
+                    value="true"
+                  />
                   Đúng
-                  <input type="radio" name={`check-${index}`} onChange={changeAnswer(index)}  value={false}/>
+                  <input
+                    type="radio"
+                    name={`check-${index}`}
+                    onChange={changeAnswer(index)}
+                    value="" 
+                  />
                   Sai
                 </div>
               </div>
@@ -148,9 +158,10 @@ const Add = () => {
               Thêm đáp án
             </button>
           </div>
-          <button 
-          onClick={_addQuestion}
-          className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal w-full">
+          <button
+            onClick={_addQuestion}
+            className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal w-full"
+          >
             Thêm Câu hỏi
           </button>
         </div>

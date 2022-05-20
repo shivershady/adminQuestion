@@ -6,7 +6,7 @@ function Question(props) {
   const { id } = useParams();
   const [showQuestion, setShowQuestion] = useState([]);
 
-  const getQuestion = async () => {
+  const getQuestions = async () => {
     try {
       const rep = await getAllQuestions(id);
       setShowQuestion(rep.data);
@@ -16,13 +16,13 @@ function Question(props) {
   };
 
   useEffect(() => {
-    getQuestion();
+    getQuestions();
   }, []);
 
   const deleteNote = async (id, index) => {
     try {
       await deleteQuestion(id);
-      getQuestion();
+      getQuestions();
       alert("Xoá thành công");
     } catch (error) {
       console.log();
@@ -52,9 +52,6 @@ function Question(props) {
                   className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
                 >
                   Remove
-                </button>
-                <button className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">
-                  <Link to={`/question`}>Thông tin chi tiết</Link>
                 </button>
               </div>
             );

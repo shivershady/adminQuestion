@@ -16,13 +16,13 @@ export function addQuestion(payload) {
 }
 
 export function editQuestion(payload) {
-    const url = "/api/question/add";
+    const url = "/api/question/update";
     return Axios.post(url,payload)
 }
 
-export function deleteQuestion(payload) {
-    const url = "";
-    return Axios.post(url,payload)
+export function deleteQuestion(id) {
+    const url = `/api/question/${id}`;
+    return Axios.get(url)
 }
 
 export const questionService = {
