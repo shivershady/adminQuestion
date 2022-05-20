@@ -18,7 +18,7 @@ function App() {
                         <Route path="/edit-exam/:id" element={<EditExam/>}/>
                         <Route path="/question/:id" element={<Question/>}/>
                         <Route path="/add-question/:idExam" element = {<Add />}/>
-                        <Route path = "/edit-question/:idQuestion" element = {<Edit/>}/>
+                        <Route path = "/edit-question/:idExam/:idQuestion" element = {<Edit/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>

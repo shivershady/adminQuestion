@@ -6,7 +6,7 @@ export function getAllQuestions(examId) {
 }
 
 export function getQuestion(id) {
-    const url = `/api/question/${id}`;
+    const url = `/api/question/getById/${id}`;
     return Axios.get(url)
 }
 
@@ -16,8 +16,8 @@ export function addQuestion(payload) {
 }
 
 export function editQuestion(payload) {
-    const url = "/api/question/update";
-    return Axios.post(url,payload)
+    const url = "/api/question/edit";
+    return Axios.put(url,payload)
 }
 
 export function deleteQuestion(id) {

@@ -10,9 +10,9 @@ const Add = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [questionText, setQuestionText] = useState("");
 
-  const updateFieldChanged = (index) => (e) => {
+  const updateAnswerChanged = (index) => (e) => {
     let newArr = [...answers];
-    newArr[index] = { ...newArr[index], content: e.target.value };
+    newArr[index] = { ...newArr[index], answer_content: e.target.value };
     setAnswers(newArr);
   };
   const changeAnswer = (index) => (e) => {
@@ -40,13 +40,13 @@ const Add = () => {
       return (
         <div className="relative mx-auto" key={index}>
           <img
-            className="w-40 h-40 object-cover shadow"
+            className="object-cover w-40 h-40 shadow"
             type="img"
             src={file}
             key={file}
           />
           <div
-            className="fas fa-times w-4 h-4 absolute z-10 top-2 right-2  rounded-full text-center flex items-center justify-center cursor-pointer opacity-30 bg-red-500 hover:opacity-100 hover:bg-gray-200 text-2xl"
+            className="absolute z-10 flex items-center justify-center w-4 h-4 text-2xl text-center bg-red-500 rounded-full cursor-pointer fas fa-times top-2 right-2 opacity-30 hover:opacity-100 hover:bg-gray-200"
             onClick={removeSelectedImage.bind(this, index)}
           >
             X
@@ -76,8 +76,8 @@ const Add = () => {
   };
   return (
     <div>
-      <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-        <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+      <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
+        <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
             <div className="flex justify-between">
               <h1 className="text-grey-darkest">Thêm câu hỏi</h1>
@@ -93,12 +93,12 @@ const Add = () => {
                 Single select
               </option>
             </select>
-            <div className=" mt-4">
+            <div className="mt-4 ">
               <h1>Câu hỏi</h1>
               <input
                 name="text"
                 onChange={changeQuestion}
-                className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                className="w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                 placeholder="thêm câu hỏi"
               />
             </div>
@@ -111,12 +111,12 @@ const Add = () => {
                 name="file"
                 id="file"
                 onChange={changeQuestion}
-                className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker hidden"
+                className="hidden w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                 placeholder="Add Todo"
               />
               <label
                 htmlFor="file"
-                className="flex justify-center items-center bg-indigo-600 text-white w-36 h-10 rounded-lg"
+                className="flex items-center justify-center h-10 text-white bg-indigo-600 rounded-lg w-36"
               >
                 <i className="material-icons">Thêm file</i>
               </label>
@@ -127,9 +127,9 @@ const Add = () => {
             {answers.map((item, index) => (
               <div key={index}>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 mb-4 mr-4 text-grey-darker"
+                  className="w-full px-3 py-2 mb-4 mr-4 border rounded shadow appearance-none text-grey-darker"
                   placeholder={index + 1}
-                  onChange={updateFieldChanged(index)}
+                  onChange={updateAnswerChanged(index)}
                 />
                 <div>
                   <input
@@ -150,9 +150,9 @@ const Add = () => {
               </div>
             ))}
             <button
-              className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal"
+              className="p-2 border-2 rounded flex-no-shrink text-teal border-teal hover:text-white hover:bg-teal"
               onClick={() =>
-                setAnswers([...answers, { content: "", isright: false }])
+                setAnswers([...answers, { answer_content: "", isright: false }])
               }
             >
               Thêm đáp án
@@ -160,7 +160,7 @@ const Add = () => {
           </div>
           <button
             onClick={_addQuestion}
-            className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal w-full"
+            className="w-full p-2 border-2 rounded flex-no-shrink text-teal border-teal hover:text-white hover:bg-teal"
           >
             Thêm Câu hỏi
           </button>

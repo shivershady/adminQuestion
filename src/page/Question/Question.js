@@ -30,12 +30,12 @@ function Question(props) {
   };
 
   return (
-    <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-      <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-        <div className="mb-4 flex justify-between">
+    <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
+      <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
+        <div className="flex justify-between mb-4">
           <h1 className="text-grey-darkest">Danh sách Câu hỏi</h1>
           <Link to={`/add-question/${id}`}>
-            <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">
+            <button className="p-2 border-2 rounded flex-no-shrink text-teal border-teal hover:text-white hover:bg-teal">
               Add
             </button>
           </Link>
@@ -43,13 +43,13 @@ function Question(props) {
         <div>
           {(showQuestion || []).map((item, index) => {
             return (
-              <div className="flex mb-4 items-center" key={index}>
-                <Link to={`/edit-question/${item.id}`}>
+              <div className="flex items-center mb-4" key={index}>
+                <Link to={`/edit-question/${id}/${item.id}`}>
                   <p className="w-full text-grey-darkest">{item.question_content}</p>
                 </Link>
                 <button
                   onClick={() => deleteNote(item.id, index)}
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
+                  className="p-2 ml-2 border-2 rounded flex-no-shrink text-red border-red hover:text-white hover:bg-red"
                 >
                   Remove
                 </button>
