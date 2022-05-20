@@ -32,33 +32,43 @@ function Home(props) {
   return (
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-        <div className="mb-4 flex justify-between">
-          <h1 className="text-grey-darkest">Danh sách Exam</h1>
+        <div className="mb-4 md:flex md:justify-between text-center">
+          <h1 className="text-grey-darkest font-bold  text-xl">List of exam questions</h1>
           <Link to="/add-exam">
-            <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">
-              Add
-            </button>
+          <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Exam</button>
           </Link>
         </div>
         <div>
           {(showQuestion || []).map((item, index) => {
             return (
               <div className="flex mb-4 items-center" key={index}>
-                <Link to={`/edit-exam/${item.id}`}>
-                  <p className="w-full text-grey-darkest">{item.exam_name}</p>
-                </Link>
-                <button
+                
+                {/* {item.exam_name}  */}
+               <div>
+               <p className="w-32 text-sm bg-blue-700 text-white rounded-lg p-2 ">{item.exam_name} </p>
+               </div>
+                
+               <button
                   onClick={() => deleteNote(item.id, index)}
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
+                  class="text-white bg-red-700  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
                 >
                   Remove
                 </button>
+                <Link to={`/edit-exam/${item.id}`}>
                 <button
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
+          
+                  class="text-white bg-blue-700  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
                 >
-                    <Link to={`/question/${item.id}`}>Thông tin chi tiết</Link>
+                  Edit
                 </button>
-              </div>    
+                </Link>
+
+                <button
+                  class="text-white bg-blue-700  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
+                >
+                    <Link to={`/question/${item.id}`}>Details</Link>
+                </button>
+               </div>  
             );
           })}
         </div>
