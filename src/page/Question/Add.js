@@ -5,7 +5,7 @@ import { addQuestion } from "../../services/questionService";
 const Add = () => {
   const { idExam } = useParams();
   const [answers, setAnswers] = useState([]);
-  const [type, setType] = useState(0);
+  const [type, setType] = useState(1);
   const [file_name, setFile_name] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [questionText, setQuestionText] = useState("");
