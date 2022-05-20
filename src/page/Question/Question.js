@@ -32,10 +32,10 @@ function Question(props) {
   return (
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
       <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-        <div className="mb-4 flex justify-between">
-          <h1 className="text-grey-darkest">Danh sách Câu hỏi</h1>
+        <div className="mb-4 flex justify-between items-center">
+          <h1 className="text-grey-darkest font-bold">Question list</h1>
           <Link to={`/add-question/${id}`}>
-            <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">
+            <button class="text-white bg-blue-700 w-28 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3" >
               Add
             </button>
           </Link>

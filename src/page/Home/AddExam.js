@@ -31,21 +31,20 @@ const AddExam = () => {
         <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
             <div className="flex justify-between">
-              <h1 className="text-grey-darkest">Thêm Exam</h1>
             </div>
             <div className=" mt-4">
-              <h1>Tên Kỳ thi</h1>
+              <h1 className="font-semibold text-lg">Exam name</h1>
               <input
                 name="exam_name"
                 value={exam_name}
                 onChange={changeInput}
                 className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
-                placeholder="thêm kì thi"
+                placeholder="exam name"
               />
             </div>
           </div>
           <div>
-            <h1>Thời gian thi</h1>
+            <h1 className="font-semibold text-lg">Time</h1>
             <input
               type="number"
               name="time_limit"
@@ -55,12 +54,14 @@ const AddExam = () => {
               placeholder="thêm thời gian"
             />
           </div>
-          <button
+         <div className="flex justify-center mt-4">
+         <button
             onClick={() => addNewExam()}
-            className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal"
+            class="text-white bg-blue-700 w-44 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
           >
-            Add
+            Add exam
           </button>
+         </div>
         </div>
       </div>
     </div>
