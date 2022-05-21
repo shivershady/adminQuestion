@@ -41,14 +41,16 @@ function Home(props) {
         <div>
           {(showQuestion || []).map((item, index) => {
             return (
-              <div className="flex mb-4 items-center" key={index}>
+              <div className="flex mb-4 justify-between  items-center" key={index}>
                 
                 {/* {item.exam_name}  */}
                <div>
-               <p className="w-32 text-sm bg-blue-700 text-white rounded-lg p-2 ">{item.exam_name} </p>
+               <p className="text-lg font-bold ">{item.exam_name} </p>
                </div>
                 
-               <button
+                <div>
+
+                <button
                   onClick={() => deleteNote(item.id, index)}
                   class="text-white bg-red-700  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
                 >
@@ -68,6 +70,8 @@ function Home(props) {
                 >
                     <Link to={`/question/${item.id}`}>Details</Link>
                 </button>
+                </div>
+
                </div>  
             );
           })}

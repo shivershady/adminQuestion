@@ -6,7 +6,7 @@ import EditExam from "./page/Home/EditExam";
 import Add from "./page/Question/Add";
 import Edit from "./page/Question/Edit";
 import Question from "./page/Question/Question";
-
+import Login from './page/Auth/Login';
 function App() {
     return (
         <div className="App">
@@ -19,6 +19,7 @@ function App() {
                         <Route path="/question/:id" element={<Question/>}/>
                         <Route path="/add-question/:idExam" element = {<Add />}/>
                         <Route path = "/edit-question/:idExam/:idQuestion" element = {<Edit/>}/>
+                        <Route path="/login" element={<Login/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>

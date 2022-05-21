@@ -19,7 +19,7 @@ function Question(props) {
     getQuestions();
   }, []);
 
-  const deleteNote = async (id, index) => {
+  const deleteNote = async (id) => {
     try {
       await deleteQuestion(id);
       getQuestions();
@@ -43,16 +43,22 @@ function Question(props) {
         <div>
           {(showQuestion || []).map((item, index) => {
             return (
-              <div className="flex items-center mb-4" key={index}>
-                <Link to={`/edit-question/${id}/${item.id}`}>
+              <div className="flex items-center justify-between mb-4" key={index}>
+               <div>
+               <Link to={`/edit-question/${id}/${item.id}`}>
                   <p className="w-full text-grey-darkest">{item.question_content}</p>
                 </Link>
-                <button
-                  onClick={() => deleteNote(item.id, index)}
-                  className="p-2 ml-2 border-2 rounded flex-no-shrink text-red border-red hover:text-white hover:bg-red"
+               </div>
+
+               <div>
+               <button
+                  onClick={() => deleteNote(item.id)}
+                  className="p-1 ml-2 border-2 rounded  flex-no-shrink text-red border-red hover:text-white hover:bg-red-500"
                 >
                   Remove
                 </button>
+               </div>
+
               </div>
             );
           })}
