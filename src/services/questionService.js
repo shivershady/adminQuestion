@@ -16,8 +16,8 @@ export function addQuestion(payload) {
 }
 
 export function editQuestion(payload) {
-    const url = "/api/question/edit";
-    return Axios.put(url,payload) 
+    const url = "/api/question/add";
+    return Axios.post(url,payload) 
 }
 
 export function deleteQuestion(id) {

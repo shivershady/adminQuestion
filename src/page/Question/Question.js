@@ -45,18 +45,28 @@ function Question(props) {
             return (
               <div className="flex items-center justify-between mb-4" key={index}>
                <div>
-               <Link to={`/edit-question/${id}/${item.id}`}>
+               
                   <p className="w-full text-grey-darkest">{item.question_content}</p>
-                </Link>
+               
                </div>
 
-               <div>
+               <div className="flex">
+                 <Link to={`/edit-question/${id}/${item.id}`}>
+                   
+               <button
+                  className="p-1 ml-2 border-2 rounded  flex-no-shrink text-red border-red hover:text-white hover:bg-blue-500"
+                >
+                  Edit
+                </button>
+                </Link>
+
                <button
                   onClick={() => deleteNote(item.id)}
                   className="p-1 ml-2 border-2 rounded  flex-no-shrink text-red border-red hover:text-white hover:bg-red-500"
                 >
                   Remove
                 </button>
+
                </div>
 
               </div>

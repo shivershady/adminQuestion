@@ -97,10 +97,10 @@ const Edit = () => {
       <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
         <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
-            <div className="flex justify-between">
-              <h1 className="text-grey-darkest">Thêm câu hỏi</h1>
+            <div className="flex justify-center">
+            <h1 className="text-grey-darkest font-bold text-xl">Edit question</h1>
             </div>
-            <select className="w-48" value={type} onChange={(e) => setType(e.target.value)}>
+            <select className="bg-gray-50 border mt-3 border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={type} onChange={(e) => setType(e.target.value)}>
               <option value="1" key="1">
                 Single choice{" "}
               </option>
@@ -112,7 +112,6 @@ const Edit = () => {
               </option>
             </select>
             <div className="mt-4 ">
-              <h1>Câu hỏi</h1>
               <input
                 name="text"
                 onChange={changeQuestion}
@@ -135,48 +134,51 @@ const Edit = () => {
               />
               <label
                 htmlFor="file"
-                className="flex items-center justify-center h-10 text-white bg-indigo-600 rounded-lg w-36"
+                className="flex items-center cursor-pointer justify-center h-10 text-white bg-indigo-600 rounded-lg w-36"
               >
-                <i className="material-icons">Thêm file</i>
+                <i className="material-icons ">Thêm file</i>
               </label>
             </div>
           </div>
           <div>
-            <h1>Câu trả lời</h1>
             {(answers||[]).map((item, index) => (
-              <div key={index}>
+              <div key={index} >
                 <input
                   className="w-full px-3 py-2 mb-4 mr-4 border rounded shadow appearance-none text-grey-darker"
                   placeholder={index + 1}
                   value={item.answer_content}
                   onChange={updateAnswerChanged(index)}
                 />
-                <div>
+                <div className="flex justify-start items-center ">
                   <input
                     type="checkbox"
                     name={`check-${index}`}
                     onChange={changeAnswer(index,item.isright)}
                     checked={item.isright}
+                    className="form-checkbox  h-5 w-5 text-green-600"
                   />
-                  Đúng
+                  True
                 </div>
+
               </div>
             ))}
             <button
-              className="p-2 border-2 rounded flex-no-shrink text-teal border-teal hover:text-white hover:bg-teal"
+              className="h-10 mb-2 text-white bg-indigo-600 rounded-lg w-36"
               onClick={() =>
                 setAnswers([...answers, { answer_content: "", isright: false }])
               }
             >
-              Thêm đáp án
+              Next question
             </button>
           </div>
+          <div className="flex justify-center">
           <button
             onClick={_editQuestion}
-            className="w-full p-2 border-2 rounded flex-no-shrink text-teal border-teal hover:text-white hover:bg-teal"
+            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center md:w-60 w-44 mr-2 mb-2"
           >
-            Sửa câu hỏi
+            Submit
           </button>
+          </div>
         </div>
       </div>
     </div>
