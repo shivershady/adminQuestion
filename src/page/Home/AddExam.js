@@ -6,6 +6,8 @@ const AddExam = () => {
     exam_name: "",
     time_limit: 0,
   });
+  const [errorName, setErrorName] = useState('');
+  const [errorTime, setErrorTime] = useState('');
   const { exam_name, time_limit } = data;
 
   const changeInput = (e) => {
