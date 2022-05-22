@@ -22,7 +22,7 @@ export function editExam(payload) {
 
 export function delExam(id) {
     const url = `/api/category/delete/${id}`;
-    return Axios.get(url)
+    return Axios.del(url)
 }
 
 export const authService = {
