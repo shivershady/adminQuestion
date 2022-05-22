@@ -1,7 +1,7 @@
 FROM node:lts-alpine as build-dist
 WORKDIR app
 COPY package.json /app
-RUN yarn
+RUN yarn install
 COPY . /app
 RUN yarn run build
 
