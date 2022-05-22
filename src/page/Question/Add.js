@@ -23,10 +23,12 @@ const Add = () => {
         setAnswers(newArr);
     };
 
-    const changeQuestion = (e) => {
+    const changeQuestionText = (e) => {
         if (e.target.value) {
             setQuestionText(e.target.value);
         }
+    };
+    const changeQuestionImg = (e) => {
         if (e.target.files) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -38,8 +40,8 @@ const Add = () => {
             const urlImg = e.target.files[0];
             setImageQuestion(urlImg);
         }
-    };
-    console.log(imageQuestion)
+    }
+
     const _addQuestion = async () => {
         formData.append('question_type', parseInt(type));
         formData.append('question_content', questionText);
@@ -84,7 +86,7 @@ const Add = () => {
                         <div className="mt-4 ">
                             <input
                                 name="text"
-                                onChange={changeQuestion}
+                                onChange={changeQuestionText}
                                 className="w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                                 placeholder="add question"
                             />
@@ -98,7 +100,7 @@ const Add = () => {
                                 type="file"
                                 name="file"
                                 id="file"
-                                onChange={changeQuestion}
+                                onChange={changeQuestionImg}
                                 className="hidden w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                                 placeholder="Add Todo"
                             />

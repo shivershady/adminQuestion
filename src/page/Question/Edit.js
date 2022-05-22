@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { editQuestion, getQuestion } from "../../services/questionService";
+import {useNavigate, useParams} from "react-router-dom";
+import { editQuestion, getQuestion} from "../../services/questionService";
 
 const Edit = () => {
   const { idExam, idQuestion } = useParams();
+  const formData = new FormData();
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState([]);
   const [type, setType] = useState(0);
-  const [file_name, setFile_name] = useState([]);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [imageQuestion, setImageQuestion] = useState('');
+  const [selectedImageQuestion, setSelectedImageQuestion] = useState([]);
   const [questionText, setQuestionText] = useState("");
 
   useEffect(() => {
@@ -17,80 +19,66 @@ const Edit = () => {
   const _getQuestion = async () => {
     try {
       const rep = await getQuestion(idQuestion);
-      console.log(rep.data);
       setQuestionText(rep.data.question_content);
       setType(rep.data.question_type);
       setAnswers(rep.data.answerDTOS)
+      setSelectedImageQuestion(process.env.REACT_APP_BASE_API+'/images/'+rep.data.image_url)
     } catch (error) {
       console.log(error);
     }
   };
-
+  // console.log(imageQuestion)
   const updateAnswerChanged = (index) => (e) => {
     let newArr = [...answers];
     newArr[index] = { ...newArr[index], answer_content: e.target.value };
     setAnswers(newArr);
   };
-  console.log(answers);
+
   const changeAnswer = (index,isright) => (e) => {
     let newArr = [...answers];
     newArr[index] = { ...newArr[index], isright: !isright };
     setAnswers(newArr);
   };
 
-  const changeQuestion = (e) => {
+  const changeQuestionText = (e) => {
     if (e.target.value) {
       setQuestionText(e.target.value);
     }
+  };
+  const changeQuestionImg = (e) => {
     if (e.target.files) {
-      const filesArray = Array.from(e.target.files).map((file) =>
-        URL.createObjectURL(file)
-      );
-      setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-      const file_names = Array.from(e.target.files).map((file) => file);
-      setFile_name([...file_name, ...file_names]);
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setSelectedImageQuestion(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+      const urlImg = e.target.files[0];
+      setImageQuestion(urlImg);
     }
-  };
+  }
 
-  const renderPhotos = (source) => {
-    return source.map((file, index) => {
-      return (
-        <div className="relative mx-auto" key={index}>
-          <img
-            className="object-cover w-40 h-40 shadow"
-            type="img"
-            src={file}
-            key={file}
-          />
-          <div
-            className="absolute z-10 flex items-center justify-center w-4 h-4 text-2xl text-center bg-red-500 rounded-full cursor-pointer fas fa-times top-2 right-2 opacity-30 hover:opacity-100 hover:bg-gray-200"
-            onClick={removeSelectedImage.bind(this, index)}
-          >
-            X
-          </div>
-        </div>
-      );
-    });
-  };
 
-  const removeSelectedImage = (index) => {
-    const arr = [...selectedFiles];
-    arr.splice(index, 1);
-    setSelectedFiles(arr);
-    const arr2 = [...file_name];
-    arr2.splice(index, 1);
-    setFile_name(arr2);
-  };
-
-  const _editQuestion = () => {
-    editQuestion({
-      id: parseInt(idQuestion),
-      question_type: parseInt(type),
-      question_content: questionText,
-      answerDTOS: answers,
-      examDto: { id: parseInt(idExam) },
-      mark: 10,
-    });
+  const _editQuestion = async () => {
+    formData.append('id',idQuestion);
+    formData.append('question_type', parseInt(type));
+    formData.append('question_content', questionText);
+    for (let i = 0; i < answers.length; i++) {
+      formData.append(`answerDTOS[${i}].isright`, answers[i].isright);
+      formData.append(`answerDTOS[${i}].answer_content`, answers[i].answer_content);
+    }
+    if(imageQuestion !== ''){
+      formData.append("file",imageQuestion)
+    }
+    formData.append('examDto.id', parseInt(idExam));
+    formData.append('mark', 10);
+    try {
+      await editQuestion(formData);
+      navigate(`/question/${idExam}`)
+    }catch (e) {
+      console.log(e)
+    }
   };
   return (
     <div>
@@ -114,21 +102,21 @@ const Edit = () => {
             <div className="mt-4 ">
               <input
                 name="text"
-                onChange={changeQuestion}
+                onChange={changeQuestionText}
                 value={questionText}
                 className="w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                 placeholder="thêm câu hỏi"
               />
             </div>
             <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-              {renderPhotos(selectedFiles)}
+              {selectedImageQuestion.length > 0 && <img src={selectedImageQuestion} alt="" id="img" className="img" />}
             </div>
             <div className="flex mt-4">
               <input
                 type="file"
                 name="file"
                 id="file"
-                onChange={changeQuestion}
+                onChange={changeQuestionImg}
                 className="hidden w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                 placeholder="Add Todo"
               />
