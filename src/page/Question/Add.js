@@ -11,6 +11,7 @@ const Add = () => {
     const [imageQuestion, setImageQuestion] = useState('');
     const [selectedImageQuestion, setSelectedImageQuestion] = useState([]);
     const [questionText, setQuestionText] = useState("");
+    const [error, setError] = useState('');
 
     const updateAnswerChanged = (index) => (e) => {
         let newArr = [...answers];
@@ -41,15 +42,26 @@ const Add = () => {
             setImageQuestion(urlImg);
         }
     }
-
+    console.log(!!imageQuestion)
     const _addQuestion = async () => {
+        if (answers.length===0){
+            setError("Điền đầy đủ thông tin rồi submit")
+            return
+        }else {
+            for (let i = 0; i < answers.length; i++) {
+                if (questionText === '' || answers[i].answer_content === '') {
+                    setError("Điền đầy đủ thông tin rồi submit")
+                    return
+                }
+            }
+        }
         formData.append('question_type', parseInt(type));
         formData.append('question_content', questionText);
         for (let i = 0; i < answers.length; i++) {
             formData.append(`answerDTOS[${i}].isright`, answers[i].isright);
             formData.append(`answerDTOS[${i}].answer_content`, answers[i].answer_content);
         }
-        if(imageQuestion != null){
+        if(!!imageQuestion === true){
             formData.append("file",imageQuestion)
         }
         formData.append('examDto.id', parseInt(idExam));
@@ -86,7 +98,7 @@ const Add = () => {
                         <div className="mt-4 ">
                             <input
                                 name="text"
-                                onChange={changeQuestionText}
+                                onChange={(event)=>changeQuestionText(event)}
                                 className="w-full px-3 py-2 mr-4 border rounded shadow appearance-none text-grey-darker"
                                 placeholder="add question"
                             />
@@ -151,6 +163,7 @@ const Add = () => {
                                 Next question
                             </button>
                         </div>
+                        <div className="text-red-500 font-bold text-xl">{error}</div>
                         <div className="flex justify-center ">
                             <button
                                 onClick={_addQuestion}
