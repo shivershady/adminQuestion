@@ -19,6 +19,7 @@ function Question(props) {
         getQuestions();
     }, []);
 
+
     const deleteNote = async (id) => {
         console.log(id)
         try {
@@ -46,15 +47,15 @@ function Question(props) {
                     {(showQuestion || []).map((item, index) => {
                         return (
                             <div className="flex items-center justify-between mb-4" key={index}>
+                                {item.image_url &&
+                                <img className="w-24 h-24" src={process.env.REACT_APP_BASE_API+"/images/"+item.image_url} alt="photoQuestion"/>
+                                }
                                 <div>
-
                                     <p className="w-full text-grey-darkest">{item.question_content}</p>
-
                                 </div>
 
                                 <div className="flex">
                                     <Link to={`/edit-question/${id}/${item.id}`}>
-
                                         <button
                                             className="p-1 ml-2 border-2 rounded  flex-no-shrink text-red border-red hover:text-white hover:bg-blue-500"
                                         >
