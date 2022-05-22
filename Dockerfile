@@ -1,9 +1,9 @@
 FROM node:lts-alpine as build-dist
 WORKDIR app
 COPY package.json /app
-RUN yarn install
+RUN npm install
 COPY . /app
-RUN yarn run build
+RUN npm run build
 
 FROM nginx:stable-alpine
 WORKDIR website
