@@ -25,9 +25,7 @@ const Add = () => {
     };
 
     const changeQuestionText = (e) => {
-        if (e.target.value) {
             setQuestionText(e.target.value);
-        }
     };
     const changeQuestionImg = (e) => {
         if (e.target.files) {
