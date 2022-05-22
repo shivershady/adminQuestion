@@ -42,9 +42,7 @@ const Edit = () => {
     };
 
     const changeQuestionText = (e) => {
-        if (e.target.value) {
-            setQuestionText(e.target.value);
-        }
+        setQuestionText(e.target.value);
     };
     const changeQuestionImg = (e) => {
         if (e.target.files) {
@@ -62,10 +60,10 @@ const Edit = () => {
 
 
     const _editQuestion = async () => {
-        if (answers.length===0){
+        if (answers.length === 0) {
             setError("Điền đầy đủ thông tin rồi submit")
             return
-        }else {
+        } else {
             for (let i = 0; i < answers.length; i++) {
                 if (questionText === '' || answers[i].answer_content === '') {
                     setError("Điền đầy đủ thông tin rồi submit")
