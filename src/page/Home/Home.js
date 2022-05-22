@@ -10,7 +10,6 @@ function Home(props) {
   const getExam = async () => {
     try {
       const rep = await getAllExam();
-      console.log(rep.data);
       setShowQuestion(rep.data);
     } catch (e) {
       console.log(e);

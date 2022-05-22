@@ -11,13 +11,16 @@ export function getQuestion(id) {
 }
 
 export function addQuestion(payload) {
+    Axios.setHeaders({
+        'content-type': 'multipart/form-data'
+    })
     const url = "/api/question/add";
     return Axios.post(url,payload)
 }
 
 export function editQuestion(payload) {
     const url = "/api/question/add";
-    return Axios.post(url,payload) 
+    return Axios.post(url,payload)
 }
 
 export function deleteQuestion(id) {

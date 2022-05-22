@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { addExam } from "../../services/examService";
+import {useNavigate} from "react-router-dom";
 
 const AddExam = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     exam_name: "",
     time_limit: 0,
+    error : ''
   });
-  const [errorName, setErrorName] = useState('');
-  const [errorTime, setErrorTime] = useState('');
-  const { exam_name, time_limit } = data;
+  const { exam_name, time_limit , error } = data;
 
   const changeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const addNewExam = async () => {
+    if(exam_name == ''||time_limit==0){
+      setData({...data,error: "Điền đầy đủ thông tin & time khác 0"});
+      return
+    }
+    setData({...data,error: ''});
     try {
       const rep = await addExam(data);
+      console.log(rep)
       alert("Thêm thành công");
       setData({
         exam_name: "",
         time_limit: 0,
       });
+      navigate('/');
     } catch (error) {
-      console.log(error);
+      setData({...data,error:error});
     }
   };
 
@@ -56,10 +64,11 @@ const AddExam = () => {
               placeholder="thêm thời gian"
             />
           </div>
-         <div className="flex justify-center mt-4">
+          <div className="text-red-500 text-center w-full font-bold text-xl">{error}</div>
+          <div className="flex justify-center mt-4">
          <button
             onClick={() => addNewExam()}
-            class="text-white bg-blue-700 w-44 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
+            className="text-white bg-blue-700 w-44 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
           >
             Add exam
           </button>
