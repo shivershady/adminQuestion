@@ -46,15 +46,23 @@ function Question(props) {
                 <div>
                     {(showQuestion || []).map((item, index) => {
                         return (
-                            <div className="flex items-center justify-between mb-4" key={index}>
-                                {item.image_url &&
-                                <img className="w-24 h-24" src={process.env.REACT_APP_BASE_API+"/images/"+item.image_url} alt="photoQuestion"/>
+                            <div className="md:flex items-center md:justify-between mb-4" key={index}>
+                               
+                                <div className="flex flex-wrap justify-start items-center">
+                                <div className="md:w-20 md:h-20 overflow-hidden w-44 h-20 ">
+                               {item.image_url &&                       
+                                <img className="w-full h-full rounded object-cover" src={process.env.REACT_APP_BASE_API+"/images/"+item.image_url} alt="photoQuestion"/>                        
                                 }
-                                <div>
-                                    <p className="w-full text-grey-darkest">{item.question_content}</p>
+
+                               </div>
+                                  
+                                   <div className=" md:ml-3 md:w-auto w-full text-center mt-2 mb-2 text-grey-darkest">
+                                       {item.question_content}
+                                   </div>
+                                   
                                 </div>
 
-                                <div className="flex">
+                                <div className="flex justify-center">
                                     <Link to={`/edit-question/${id}/${item.id}`}>
                                         <button
                                             className="p-1 ml-2 border-2 rounded  flex-no-shrink text-red border-red hover:text-white hover:bg-blue-500"
