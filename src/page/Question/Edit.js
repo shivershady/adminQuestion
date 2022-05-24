@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {editQuestion, getQuestion} from "../../services/questionService";
 
 const Edit = () => {
@@ -10,11 +10,12 @@ const Edit = () => {
     const [type, setType] = useState(0);
     const [imageQuestion, setImageQuestion] = useState('');
     const [selectedImageQuestion, setSelectedImageQuestion] = useState([]);
-    const [questionText, setQuestionText] = useState("");
+    const [questionText, setQuestionText] = useState('');
     const [error, setError] = useState('');
 
     useEffect(() => {
         _getQuestion();
+    
     }, []);
 
     const _getQuestion = async () => {
@@ -42,9 +43,7 @@ const Edit = () => {
     };
 
     const changeQuestionText = (e) => {
-        if (e.target.value) {
-            setQuestionText(e.target.value);
-        }
+        setQuestionText(e.target.value);
     };
     const changeQuestionImg = (e) => {
         if (e.target.files) {
@@ -62,10 +61,10 @@ const Edit = () => {
 
 
     const _editQuestion = async () => {
-        if (answers.length===0){
+        if (answers.length === 0) {
             setError("Điền đầy đủ thông tin rồi submit")
             return
-        }else {
+        } else {
             for (let i = 0; i < answers.length; i++) {
                 if (questionText === '' || answers[i].answer_content === '') {
                     setError("Điền đầy đủ thông tin rồi submit")
@@ -96,15 +95,16 @@ const Edit = () => {
         <div>
             <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
                 <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
+                <Link className='text-sm text-blue-500' to={`/question/${idExam}`}>Back</Link>
                     <div className="mb-4">
                         <div className="flex justify-center">
-                            <h1 className="text-grey-darkest font-bold text-xl">Edit question</h1>
+                            <h1 className="text-xl font-bold text-grey-darkest">Edit question</h1>
                         </div>
                         <select
                             className="bg-gray-50 border mt-3 border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             value={type} onChange={(e) => setType(e.target.value)}>
                             <option value="1" key="1">
-                                Single choice{" "}
+                                Single choice
                             </option>
                             <option value="2" key="2">
                                 Multiple choice
@@ -138,7 +138,7 @@ const Edit = () => {
                             />
                             <label
                                 htmlFor="file"
-                                className="flex items-center cursor-pointer justify-center h-10 text-white bg-indigo-600 rounded-lg w-36"
+                                className="flex items-center justify-center h-10 text-white bg-indigo-600 rounded-lg cursor-pointer w-36"
                             >
                                 <i className="material-icons ">Thêm file</i>
                             </label>
@@ -153,13 +153,13 @@ const Edit = () => {
                                     value={item.answer_content}
                                     onChange={updateAnswerChanged(index)}
                                 />
-                                <div className="flex justify-start items-center ">
+                                <div className="flex items-center justify-start ">
                                     <input
                                         type="checkbox"
                                         name={`check-${index}`}
                                         onChange={changeAnswer(index, item.isright)}
                                         checked={item.isright}
-                                        className="form-checkbox  h-5 w-5 text-green-600"
+                                        className="w-5 h-5 text-green-600 form-checkbox"
                                     />
                                     True
                                 </div>
@@ -175,7 +175,7 @@ const Edit = () => {
                             Next question
                         </button>
                     </div>
-                    <div className="text-red-500 text-xl font-bold">{error}</div>
+                    <div className="text-xl font-bold text-red-500">{error}</div>
                     <div className="flex justify-center">
                         <button
                             onClick={_editQuestion}
