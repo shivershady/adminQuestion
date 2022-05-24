@@ -14,9 +14,9 @@ const AddExam = () => {
   const changeInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  
   const addNewExam = async () => {
-    if(exam_name == ''||time_limit==0){
+    if(exam_name == ''|| !parseInt(time_limit) >=0){
       setData({...data,error: "Điền đầy đủ thông tin & time khác 0"});
       return
     }
