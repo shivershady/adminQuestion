@@ -49,7 +49,6 @@ function Question(props) {
         </div>
         <div>
           {(showQuestion || []).map((item, index) => {
-            console.log(!!item.image_url);
             return (
               <div
                 className="items-center mb-4 md:flex md:justify-between"

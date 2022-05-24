@@ -14,6 +14,14 @@ const Edit = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let newArr = [...answers];
+    for (let i = 0; i < newArr.length; i++) {
+      newArr[i] = { ...newArr[i], isright: false };
+    }
+    setAnswers(newArr);
+  }, [type]);
+
+  useEffect(() => {
     _getQuestion();
   }, []);
 
@@ -30,7 +38,7 @@ const Edit = () => {
       console.log(error);
     }
   };
-  // console.log(imageQuestion)
+
   const updateAnswerChanged = (index) => (e) => {
     let newArr = [...answers];
     newArr[index] = { ...newArr[index], answer_content: e.target.value };
@@ -70,8 +78,12 @@ const Edit = () => {
   };
 
   const _editQuestion = async () => {
+    const result = answers.filter((answer) => answer.isright);
     if (answers.length === 0) {
       setError("Điền đầy đủ thông tin rồi submit");
+      return;
+    } else if (result.length == 0) {
+      setError("Chọn đáp án đúng");
       return;
     } else {
       for (let i = 0; i < answers.length; i++) {
