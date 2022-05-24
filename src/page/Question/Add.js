@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {addQuestion} from "../../services/questionService";
 
 const Add = () => {
@@ -76,9 +76,10 @@ const Add = () => {
         <div>
             <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
                 <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
+                <Link className='text-sm text-blue-500' to={`/question/${idExam}`}>Back</Link>
                     <div className="mb-4">
                         <div className="flex justify-center">
-                            <h1 className="text-grey-darkest font-bold text-xl">Add question</h1>
+                            <h1 className="text-xl font-bold text-grey-darkest">Add question</h1>
                         </div>
                         <select
                             className="bg-gray-50 border mt-3 border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -116,7 +117,7 @@ const Add = () => {
                             />
                             <label
                                 htmlFor="file"
-                                className="flex items-center justify-center  cursor-pointer h-10 text-white bg-indigo-600 rounded-lg w-36"
+                                className="flex items-center justify-center h-10 text-white bg-indigo-600 rounded-lg cursor-pointer w-36"
                             >
                                 <i className="material-icons ">add file</i>
                             </label>
@@ -130,13 +131,13 @@ const Add = () => {
                                     placeholder={`Answer${index + 1}`}
                                     onChange={updateAnswerChanged(index)}
                                 />
-                                <div className="flex justify-start mb-2 items-center">
+                                <div className="flex items-center justify-start mb-2">
                                     <input
                                         type="radio"
                                         name={`check-${index}`}
                                         onChange={changeAnswer(index)}
                                         value="true"
-                                        className="form-checkbox h-5 w-5 text-green-600"
+                                        className="w-5 h-5 text-green-600 form-checkbox"
                                     />
                                     true
                                     <input
@@ -144,7 +145,7 @@ const Add = () => {
                                         name={`check-${index}`}
                                         onChange={changeAnswer(index)}
                                         value=""
-                                        className="form-checkbox h-5 w-5 text-red-600"
+                                        className="w-5 h-5 text-red-600 form-checkbox"
                                     />
                                     false
                                 </div>
@@ -161,7 +162,7 @@ const Add = () => {
                                 Next question
                             </button>
                         </div>
-                        <div className="text-red-500 font-bold text-xl">{error}</div>
+                        <div className="text-xl font-bold text-red-500">{error}</div>
                         <div className="flex justify-center ">
                             <button
                                 onClick={_addQuestion}
